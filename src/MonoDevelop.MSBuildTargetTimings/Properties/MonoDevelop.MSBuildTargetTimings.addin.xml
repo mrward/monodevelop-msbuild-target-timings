@@ -1,0 +1,15 @@
+﻿<ExtensionModel>
+	<Runtime>
+		<Import assembly="MonoDevelop.MSBuildTargetTimings.dll" />
+	</Runtime>
+
+	<Extension path="/MonoDevelop/Ide/Pads">
+		<Pad
+			id="MonoDevelop.MSBuildTargetTimings.MSBuildTargetTimingsPad"
+			_label="MSBuild Target Timings"
+			class="MonoDevelop.MSBuildTargetTimings.MSBuildTargetTimingsPad"
+			defaultPlacement="Bottom"
+			defaultStatus="AutoHide"
+			defaultLayout="*" />
+	</Extension>
+</ExtensionModel>
