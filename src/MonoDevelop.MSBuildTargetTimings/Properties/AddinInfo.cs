@@ -33,5 +33,5 @@ using Mono.Addins;
 [assembly: AddinName ("MSBuild Target Timings")]
 [assembly: AddinDescription ("")]
 
-[assembly: AddinDependency ("Core", "7.0")]
-[assembly: AddinDependency ("Ide", "7.0")]
+[assembly: AddinDependency ("Core", "8.0")]
+[assembly: AddinDependency ("Ide", "8.0")]
