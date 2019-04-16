@@ -27,6 +27,7 @@
 using System;
 using System.Diagnostics;
 using MonoDevelop.Ide.Gui.Components;
+using MonoDevelop.Projects;
 
 namespace MonoDevelop.MSBuildTargetTimings
 {
@@ -35,11 +36,13 @@ namespace MonoDevelop.MSBuildTargetTimings
 		readonly LogView logView;
 		readonly string timing;
 		readonly Stopwatch stopwatch;
+		readonly string projectName;
 
-		public SimpleTimer (LogView logView, string timing)
+		public SimpleTimer (LogView logView, Project project, string timing)
 		{
 			this.logView = logView;
 			this.timing = timing;
+			this.projectName = project.Name;
 
 			stopwatch = new Stopwatch ();
 			stopwatch.Start ();
@@ -49,7 +52,7 @@ namespace MonoDevelop.MSBuildTargetTimings
 		{
 			stopwatch.Stop ();
 
-			string message = string.Format ("{0} {1} ms{2}", timing, stopwatch.ElapsedMilliseconds, Environment.NewLine);
+			string message = string.Format ("[{0}] {1} {2} ms{3}", projectName, timing, stopwatch.ElapsedMilliseconds, Environment.NewLine);
 
 			logView.WriteText (message);
 		}

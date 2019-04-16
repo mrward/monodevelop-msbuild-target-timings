@@ -98,21 +98,34 @@ namespace MonoDevelop.MSBuildTargetTimings
 
 		async Task RunTests ()
 		{
-			var project = IdeApp.ProjectOperations.CurrentSelectedProject as DotNetProject;
-			if (project == null) {
-				Log ("No project selected.");
+			var solution = IdeApp.ProjectOperations.CurrentSelectedSolution as Solution;
+			if (solution == null) {
+				Log ("No solution selected.");
 				return;
 			}
 
+			var currentProject = IdeApp.ProjectOperations.CurrentSelectedProject as DotNetProject;
+			if (currentProject != null) {
+				await RunTests (currentProject);
+				return;
+			}
+
+			foreach (var project in solution.GetAllItems<DotNetProject> ()) {
+				await RunTests (project);
+			}
+		}
+
+		async Task RunTests (DotNetProject project)
+		{
 			await project.ClearCachedData ();
 
 			var config = IdeApp.Workspace.ActiveConfiguration ?? ConfigurationSelector.Default;
 
-			using (var timer = new SimpleTimer (LogView, "GetReferencedAssemblies")) {
+			using (var timer = new SimpleTimer (LogView, project, "GetReferencedAssemblies")) {
 				var results = await project.GetReferencedAssemblies (config);
 			}
 
-			using (var timer = new SimpleTimer (LogView, "GetSourceFilesAsync")) {
+			using (var timer = new SimpleTimer (LogView, project, "GetSourceFilesAsync")) {
 				var sources = await project.GetSourceFilesAsync (config);
 			}
 		}
