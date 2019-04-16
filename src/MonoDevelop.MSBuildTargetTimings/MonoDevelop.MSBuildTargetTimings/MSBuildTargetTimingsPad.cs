@@ -122,7 +122,7 @@ namespace MonoDevelop.MSBuildTargetTimings
 			var config = IdeApp.Workspace.ActiveConfiguration ?? ConfigurationSelector.Default;
 
 			using (var timer = new SimpleTimer (LogView, project, "GetReferencedAssemblies")) {
-				var results = await project.GetReferencedAssemblies (config);
+				var results = await project.GetReferencedAssemblies (config, false);
 			}
 
 			using (var timer = new SimpleTimer (LogView, project, "GetSourceFilesAsync")) {
